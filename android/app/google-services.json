@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "805396833886",
+    "project_id": "biteforceapp1",
+    "storage_bucket": "biteforceapp1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805396833886:android:0bccabbf88924b73c976cf",
+        "android_client_info": {
+          "package_name": "com.biteforceapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805396833886-1efblf8h4g2sf64tgpnlnmudi5edsfjo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.biteforceapp2",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "805396833886-tj3lhpjom972d3fvhq1n7dk3kttndvmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfnLeu0uh_98Sn0PpSRmjw88RU049X8_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805396833886-tj3lhpjom972d3fvhq1n7dk3kttndvmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
