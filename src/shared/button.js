@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 
-export default function FlatButton({ title, onPress }) {
+export default function FlatButton({title, onPress}) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -25,5 +25,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 16,
     textAlign: 'center',
-  }
+  },
 });

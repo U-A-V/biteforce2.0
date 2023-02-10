@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { View, StyleSheet, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { Icon, Divider } from 'react-native-elements';
+import {View, StyleSheet, Text, Alert} from 'react-native';
+import {Icon, Divider} from 'react-native-elements';
 // import Card from '../shared/card';
 import _values from 'lodash.values';
-import { Button, Accordion } from "native-base";
+import {Button, Accordion} from 'native-base';
 import FormData from 'form-data';
-import { apiCredentails } from '../api-credentials';
-import { ProgressDialog } from 'react-native-simple-dialogs';
+import {apiCredentails} from '../api-credentials';
+import {ProgressDialog} from 'react-native-simple-dialogs';
 
-const OfflineDataScreen = ({ navigation }) => {
+const OfflineDataScreen = ({navigation}) => {
   const [progressVisible, setProgressVisible] = useState(false);
   const [data, setData] = useState({});
   const [dataArray, setDataArray] = useState([]);
@@ -23,28 +23,35 @@ const OfflineDataScreen = ({ navigation }) => {
   function _renderHeader(item, expanded) {
     return (
       <View>
-        <Divider style={{ backgroundColor: 'grey', opacity: 0.5 }} />
-        <View style={{
-          flexDirection: "row",
-          padding: 10,
-          justifyContent: 'space-between',
-          alignItems: "center",
-          backgroundColor: "white"
-        }}>
-
-          <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-            {" "}{item.title}
-          </Text>
+        <Divider style={{backgroundColor: 'grey', opacity: 0.5}} />
+        <View
+          style={{
+            flexDirection: 'row',
+            padding: 10,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: 'white',
+          }}>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}> {item.title}</Text>
           {
             // console.log(new Date(item.createdAt))
           }
-          <Button style={{ borderColor: 'green', borderRadius: 10, backgroundColor: '#0fc1a7' }} onPress={() => { syncPatient(item.id) }}>
-            <Text style={{ color: 'white', paddingHorizontal: 10 }}>Sync</Text>
+          <Button
+            style={{
+              borderColor: 'green',
+              borderRadius: 10,
+              backgroundColor: '#0fc1a7',
+            }}
+            onPress={() => {
+              syncPatient(item.id);
+            }}>
+            <Text style={{color: 'white', paddingHorizontal: 10}}>Sync</Text>
           </Button>
-          {expanded
-            ? <Icon style={{ fontSize: 18 }} name="remove-circle" />
-            : <Icon style={{ fontSize: 18 }} name="add-circle" />}
-
+          {expanded ? (
+            <Icon style={{fontSize: 18}} name="remove-circle" />
+          ) : (
+            <Icon style={{fontSize: 18}} name="add-circle" />
+          )}
         </View>
       </View>
     );
@@ -53,20 +60,27 @@ const OfflineDataScreen = ({ navigation }) => {
     return (
       <View
         style={{
-          backgroundColor: "#e3f1f1",
-          fontStyle: "italic",
-        }}
-      >
+          backgroundColor: '#e3f1f1',
+          fontStyle: 'italic',
+        }}>
         <Text
           style={{
             padding: 10,
-            fontStyle: "italic",
-          }}
-        >
+            fontStyle: 'italic',
+          }}>
           {item.content}
         </Text>
-        <Button style={{ margin: 10, marginTop: 0, backgroundColor: 'crimson', borderRadius: 10 }} onPress={() => { deletePatient(item.id) }}>
-          <Text style={{ color: 'white', paddingHorizontal: 10 }}>Delete</Text>
+        <Button
+          style={{
+            margin: 10,
+            marginTop: 0,
+            backgroundColor: 'crimson',
+            borderRadius: 10,
+          }}
+          onPress={() => {
+            deletePatient(item.id);
+          }}>
+          <Text style={{color: 'white', paddingHorizontal: 10}}>Delete</Text>
         </Button>
       </View>
     );
@@ -91,70 +105,85 @@ const OfflineDataScreen = ({ navigation }) => {
 
   async function dataFetch() {
     try {
-      const getPatients = await AsyncStorage.getItem('patients')
-      const parsedPatients = JSON.parse(getPatients)
+      const getPatients = await AsyncStorage.getItem('patients');
+      const parsedPatients = JSON.parse(getPatients);
       setData(parsedPatients);
-      // console.log(data)
       var tmp = _values(parsedPatients);
       var tmp2 = [];
-      tmp.forEach((item) => {
-        // console.log(item)
+      tmp.forEach(item => {
+        console.log(item);
         var str = `Left Bilateral: ${item.leftBilateral} \nRight Bilateral: ${item.rightBilateral} \nLeft Unilateral: ${item.leftUnilateral} \nRight Unilateral: ${item.rightUnilateral} \nIncisors: ${item.incissor}`;
-        tmp2.push({ title: item.phoneNumber, content: str, id: item.id, createdAt: item.createdAt });
-      })
-      setDataArray(tmp2);
-      // console.log(tmp);
+        tmp2.push({
+          title: item.Phone,
+          content: str,
+          id: item.id,
+          createdAt: item.createdAt,
+        });
+      });
+      setDataArray(...tmp2);
+      console.log(dataArray);
     } catch (err) {
-      alert('Application Error. Cannot load data.')
+      Alert.alert('Application Error. Cannot load data.', [
+        {
+          text: 'OK',
+          onPress: () => console.log('ok pressed'),
+          style: 'cancle',
+        },
+      ]);
     }
   }
 
   function savePatients(newPatients) {
-    const savePatients = AsyncStorage.setItem('patients', JSON.stringify(newPatients))
+    const savePatient = AsyncStorage.setItem(
+      'patients',
+      JSON.stringify(newPatients),
+    );
   }
 
   function deletePatient(id) {
-    console.log(id)
+    console.log(id);
     Alert.alert(
-      "Alert!",
+      'Alert!',
       `Are sure you want to delete?`,
       [
         {
-          text: "NO",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          text: 'NO',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
         },
         {
-          text: "YES", onPress: () => {
+          text: 'YES',
+          onPress: () => {
             delete data[id];
             savePatients(data);
             dataFetch();
-          }
-        }
+          },
+        },
       ],
-      { cancelable: false }
+      {cancelable: false},
     );
   }
 
   function syncPatient(id) {
     // console.log(data);
     Alert.alert(
-      "Alert!",
+      'Alert!',
       `Are sure you want to sync?`,
       [
         {
-          text: "NO",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          text: 'NO',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
         },
         {
-          text: "YES", onPress: () => {
+          text: 'YES',
+          onPress: () => {
             setProgressVisible(true);
             var obj = data[id];
             console.log(obj);
             var bodyData = new FormData();
             bodyData.append('action', 'addItem');
-            bodyData.append('sheetName', obj.phoneNumber);
+            bodyData.append('sheetName', obj.Phone);
             bodyData.append('lb', obj.leftBilateral);
             bodyData.append('rb', obj.rightBilateral);
             bodyData.append('inc', obj.incissor);
@@ -165,8 +194,8 @@ const OfflineDataScreen = ({ navigation }) => {
                 method: 'POST',
                 body: bodyData,
               })
-                .then((response) => response.text())
-                .then((json) => {
+                .then(response => response.text())
+                .then(json => {
                   // this.setVisible(false);
                   setProgressVisible(false);
                   if (json === 'Success') {
@@ -180,16 +209,16 @@ const OfflineDataScreen = ({ navigation }) => {
                   }
                   // Toast.show(json);
                 })
-                .catch((error) => console.error(error));
+                .catch(error => console.error(error));
             } catch (e) {
               // this.setVisible(false);
               setProgressVisible(false);
               console.log(e.message);
             }
-          }
-        }
+          },
+        },
       ],
-      { cancelable: false }
+      {cancelable: false},
     );
   }
 
@@ -218,7 +247,7 @@ const OfflineDataScreen = ({ navigation }) => {
 OfflineDataScreen.navigationOptions = {
   headerTitle: 'Offline Data',
   headerTintColor: '#fff',
-  headerStyle: { height: 60, backgroundColor: '#0fc1a7' },
+  headerStyle: {height: 60, backgroundColor: '#0fc1a7'},
 };
 
 const styles = StyleSheet.create({
@@ -227,7 +256,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-
   },
   text: {
     fontSize: 20,

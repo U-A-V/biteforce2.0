@@ -1,8 +1,8 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { LogBox } from 'react-native';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {LogBox} from 'react-native';
 import AccountScreen from './screens/AccountScreen';
 import BluetoothScreen from './screens/BluetoothScreen';
 import BiteForceScreen from './screens/BiteForceScreen';
@@ -12,22 +12,23 @@ import SignupScreen from './screens/SignupScreen';
 import OfflineDataScreen from './screens/OfflineDataScreen';
 import PatientDetailScreen from './screens/PatientDetailScreen';
 import DashboardScreen from './screens/DashboardScreen';
-import { Provider as AuthProvider } from './context/AuthContext';
-import { setNavigator } from './navigationRef';
+import {Provider as AuthProvider} from './context/AuthContext';
+import {setNavigator} from './navigationRef';
 import ResolveAuthScreen from './screens/ResolveAuthScreen';
-import { GoogleSignin } from '@react-native-community/google-signin';
+import {GoogleSignin} from '@react-native-community/google-signin';
 import database from '@react-native-firebase/database';
-import { Icon } from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 
 GoogleSignin.configure({
-  webClientId: '1087711913624-oj5ntbek6s7snijti7merfdu48s2gf8m.apps.googleusercontent.com',
+  webClientId:
+    '1087711913624-oj5ntbek6s7snijti7merfdu48s2gf8m.apps.googleusercontent.com',
 });
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   loginFlow: createStackNavigator({
     Signin: SigninScreen,
-    Signup: SignupScreen
+    Signup: SignupScreen,
   }),
   mainFlow: createBottomTabNavigator({
     Dashboard: {
@@ -37,18 +38,21 @@ const switchNavigator = createSwitchNavigator({
         BluetoothScreen: {
           screen: BluetoothScreen,
           navigationOptions: {
-            header: () => { null }
-          }
+            header: () => {
+              null;
+            },
+          },
         },
         BiteForce: BiteForceScreen,
-        OfflineReading: OfflineReadingScreen
+        OfflineReading: OfflineReadingScreen,
       }),
-      navigationOptions: ({ navigation }) => {
+      navigationOptions: ({navigation}) => {
         let tabBarVisible = false;
 
-        let routeName = navigation.state.routes[navigation.state.index].routeName
+        let routeName =
+          navigation.state.routes[navigation.state.index].routeName;
 
-        if (routeName == 'Dashboard') {
+        if (routeName === 'Dashboard') {
           tabBarVisible = true;
         }
 
@@ -57,13 +61,20 @@ const switchNavigator = createSwitchNavigator({
           tabBarOptions: {
             activeTintColor: 'crimson',
             labelStyle: {
-              fontSize: 12
+              fontSize: 12,
             },
-            style: { paddingTop: 5 }
+            style: {paddingTop: 5},
           },
-          tabBarIcon: ({ tintColor }) => <Icon name='dashboard' type='material' size={25} color={tintColor} />,
-        }
-      }
+          tabBarIcon: ({tintColor}) => (
+            <Icon
+              name="dashboard"
+              type="material"
+              size={25}
+              color={tintColor}
+            />
+          ),
+        };
+      },
     },
     Offline: {
       screen: createStackNavigator({
@@ -74,12 +85,14 @@ const switchNavigator = createSwitchNavigator({
         tabBarOptions: {
           activeTintColor: '#0fc1a7',
           labelStyle: {
-            fontSize: 12
+            fontSize: 12,
           },
-          style: { paddingTop: 5 }
+          style: {paddingTop: 5},
         },
-        tabBarIcon: ({ tintColor }) => <Icon name='cloud-off' type='material' size={25} color={tintColor} />,
-      }
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="cloud-off" type="material" size={25} color={tintColor} />
+        ),
+      },
     },
     Account: {
       screen: createStackNavigator({
@@ -90,12 +103,14 @@ const switchNavigator = createSwitchNavigator({
         tabBarOptions: {
           activeTintColor: 'dodgerblue',
           labelStyle: {
-            fontSize: 12
+            fontSize: 12,
           },
-          style: { paddingTop: 5 }
+          style: {paddingTop: 5},
         },
-        tabBarIcon: ({ tintColor }) => <Icon name='person' type='material' size={25} color={tintColor} />,
-      }
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="person" type="material" size={25} color={tintColor} />
+        ),
+      },
     },
   }),
 });
@@ -108,7 +123,7 @@ export default () => {
   return (
     <AuthProvider>
       <App
-        ref={(navigator) => {
+        ref={navigator => {
           setNavigator(navigator);
         }}
       />

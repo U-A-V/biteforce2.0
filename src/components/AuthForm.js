@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, Button, Input } from 'react-native-elements';
+import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, Button, Input} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Spacer from './Spacer';
 
-const AuthForm = ({ errorMessage, onSubmit, submitButtonText }) => {
+const AuthForm = ({errorMessage, onSubmit, submitButtonText}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
     <>
       <Input
-        label='Your Email Address'
-        placeholder='email@gmail.com'
-        leftIcon={{ type: 'material', name: 'email', color: 'grey' }}
+        label="Your Email Address"
+        placeholder="email@gmail.com"
+        leftIcon={{type: 'material', name: 'email', color: 'grey'}}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
         autoCorrect={false}
-        keyboardType='email-address'
+        keyboardType="email-address"
       />
       <Input
         secureTextEntry
         label="Password"
-        placeholder='Password'
-        leftIcon={{ type: 'material', name: 'lock', color: 'grey' }}
+        placeholder="Password"
+        leftIcon={{type: 'material', name: 'lock', color: 'grey'}}
         value={password}
         onChangeText={setPassword}
         autoCapitalize="none"
@@ -38,15 +38,17 @@ const AuthForm = ({ errorMessage, onSubmit, submitButtonText }) => {
       }
       <TouchableOpacity
         style={styles.signIn}
-        onPress={() => onSubmit({ email, password })}
-      >
-        <LinearGradient
-          colors={['#08d4c4', '#01ab9d']}
-          style={styles.signIn}
-        >
-          <Text style={[styles.textSign, {
-            color: '#fff'
-          }]}>{submitButtonText}</Text>
+        onPress={() => onSubmit({email, password})}>
+        <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
+          <Text
+            style={[
+              styles.textSign,
+              {
+                color: '#fff',
+              },
+            ]}>
+            {submitButtonText}
+          </Text>
         </LinearGradient>
       </TouchableOpacity>
     </>
@@ -64,11 +66,11 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10
+    borderRadius: 10,
   },
   textSign: {
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
 
